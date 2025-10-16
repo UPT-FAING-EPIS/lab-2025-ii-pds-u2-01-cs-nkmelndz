@@ -9,20 +9,7 @@ namespace Bank.Domain.Tests
         public void GivenCreditTypeSelected_WhenRequestCreditCard_ThenNewValidCreditCard()
         {
             string cardType = "MoneyBack";
-            ICreditCard? cardDetails = null;
-            if (cardType == "MoneyBack")
-            {
-                cardDetails = new MoneyBack();
-            }
-            else if (cardType == "Titanium")
-            {
-                cardDetails = new Titanium();
-            }
-            else if (cardType == "Platinum")
-            {
-                cardDetails = new Platinum();
-            }
-
+            ICreditCard? cardDetails = CreditCardFactory.GetCreditCard(cardType);
             Assert.IsNotNull(cardDetails);
             Assert.IsNotEmpty(cardDetails.GetCardType());
             Assert.GreaterOrEqual(cardDetails.GetCreditLimit(), 0);
