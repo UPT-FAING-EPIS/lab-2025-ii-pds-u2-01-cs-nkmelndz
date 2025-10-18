@@ -22,10 +22,15 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: Platinum
     path: Bank/Bank.Domain/Platinum.cs
-    startLine: 2
+    startLine: 6
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: >-
+    A Platinum credit card implementation.
+
+    Provides the card type, credit limit and annual charge for Platinum cards.
+  example: []
   syntax:
     content: 'public class Platinum : ICreditCard'
     content.vb: Public Class Platinum Implements ICreditCard
@@ -59,15 +64,17 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: GetCardType
     path: Bank/Bank.Domain/Platinum.cs
-    startLine: 4
+    startLine: 9
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: Gets the display name of the credit card type.
   example: []
   syntax:
     content: public string GetCardType()
     return:
       type: System.String
+      description: The card type name (for example, "MoneyBack").
     content.vb: Public Function GetCardType() As String
   overload: Bank.Domain.Platinum.GetCardType*
   implements:
@@ -90,15 +97,17 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: GetCreditLimit
     path: Bank/Bank.Domain/Platinum.cs
-    startLine: 8
+    startLine: 15
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: Gets the credit limit for this card.
   example: []
   syntax:
     content: public int GetCreditLimit()
     return:
       type: System.Int32
+      description: An integer representing the credit limit in the local currency.
     content.vb: Public Function GetCreditLimit() As Integer
   overload: Bank.Domain.Platinum.GetCreditLimit*
   implements:
@@ -121,15 +130,17 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: GetAnnualCharge
     path: Bank/Bank.Domain/Platinum.cs
-    startLine: 12
+    startLine: 21
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: Gets the annual charge for this card.
   example: []
   syntax:
     content: public int GetAnnualCharge()
     return:
       type: System.Int32
+      description: An integer representing the annual charge in the local currency.
     content.vb: Public Function GetAnnualCharge() As Integer
   overload: Bank.Domain.Platinum.GetAnnualCharge*
   implements:

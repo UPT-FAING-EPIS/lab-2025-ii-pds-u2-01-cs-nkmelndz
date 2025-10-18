@@ -1,0 +1,58 @@
+name: Publish Documentation site
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build-and-publish-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install docfx tool
+        run: |
+          dotnet tool restore || true
+          if ! command -v docfx >/dev/null 2>&1; then
+            dotnet tool install -g docfx --version 3.4.0 || true
+            echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+          fi
+
+      - name: Run docfx init if missing
+        run: |
+          if [ ! -f docfx.json ]; then
+            docfx init -y
+          fi
+
+      - name: Generate metadata
+        run: |
+          docfx metadata docfx.json
+
+      - name: Build site
+        run: |
+          docfx build docfx.json --output _site
+
+      - name: Upload _site artifact for Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: _site
+
+  deploy:
+    needs: build-and-publish-docs
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://$GITHUB_REPOSITORY.github.io
+
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
+*** End Patch

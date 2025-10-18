@@ -20,10 +20,12 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: PlatinumFactoryMethod
     path: Bank/Bank.Domain/PlatinumFactoryMethod.cs
-    startLine: 2
+    startLine: 5
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: Concrete factory method that creates <xref href="Bank.Domain.Platinum" data-throw-if-not-resolved="false"></xref> cards.
+  example: []
   syntax:
     content: 'public class PlatinumFactoryMethod : CreditCardFactoryMethod'
     content.vb: Public Class PlatinumFactoryMethod Inherits CreditCardFactoryMethod
@@ -57,19 +59,27 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: MakeProduct
     path: Bank/Bank.Domain/PlatinumFactoryMethod.cs
-    startLine: 4
+    startLine: 11
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: Creates a new <xref href="Bank.Domain.Platinum" data-throw-if-not-resolved="false"></xref> instance.
   example: []
   syntax:
     content: protected override ICreditCard MakeProduct()
     return:
       type: Bank.Domain.ICreditCard
+      description: A <xref href="Bank.Domain.Platinum" data-throw-if-not-resolved="false"></xref> as <xref href="Bank.Domain.ICreditCard" data-throw-if-not-resolved="false"></xref>.
     content.vb: Protected Overrides Function MakeProduct() As ICreditCard
   overridden: Bank.Domain.CreditCardFactoryMethod.MakeProduct
   overload: Bank.Domain.PlatinumFactoryMethod.MakeProduct*
 references:
+- uid: Bank.Domain.Platinum
+  commentId: T:Bank.Domain.Platinum
+  href: Bank.Domain.Platinum.html
+  name: Platinum
+  nameWithType: Platinum
+  fullName: Bank.Domain.Platinum
 - uid: Bank.Domain
   commentId: N:Bank.Domain
   href: Bank.html
@@ -355,6 +365,13 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: Bank.Domain.ICreditCard
+  commentId: T:Bank.Domain.ICreditCard
+  parent: Bank.Domain
+  href: Bank.Domain.ICreditCard.html
+  name: ICreditCard
+  nameWithType: ICreditCard
+  fullName: Bank.Domain.ICreditCard
 - uid: Bank.Domain.CreditCardFactoryMethod.MakeProduct
   commentId: M:Bank.Domain.CreditCardFactoryMethod.MakeProduct
   parent: Bank.Domain.CreditCardFactoryMethod
@@ -380,10 +397,3 @@ references:
   name: MakeProduct
   nameWithType: PlatinumFactoryMethod.MakeProduct
   fullName: Bank.Domain.PlatinumFactoryMethod.MakeProduct
-- uid: Bank.Domain.ICreditCard
-  commentId: T:Bank.Domain.ICreditCard
-  parent: Bank.Domain
-  href: Bank.Domain.ICreditCard.html
-  name: ICreditCard
-  nameWithType: ICreditCard
-  fullName: Bank.Domain.ICreditCard

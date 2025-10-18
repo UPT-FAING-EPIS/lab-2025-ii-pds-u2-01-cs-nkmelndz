@@ -20,10 +20,12 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: CreditCardFactory
     path: Bank/Bank.Domain/CreditCarFactory.cs
-    startLine: 2
+    startLine: 5
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: A simple static factory for creating <xref href="Bank.Domain.ICreditCard" data-throw-if-not-resolved="false"></xref> instances by type name.
+  example: []
   syntax:
     content: public class CreditCardFactory
     content.vb: Public Class CreditCardFactory
@@ -55,23 +57,34 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: GetCreditCard
     path: Bank/Bank.Domain/CreditCarFactory.cs
-    startLine: 4
+    startLine: 12
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: Returns an <xref href="Bank.Domain.ICreditCard" data-throw-if-not-resolved="false"></xref> implementation matching the provided cardType.
+  example: []
   syntax:
     content: public static ICreditCard GetCreditCard(string cardType)
     parameters:
     - id: cardType
       type: System.String
+      description: A string identifying the desired card type (e.g. "MoneyBack").
     return:
       type: Bank.Domain.ICreditCard
+      description: An instance of <xref href="Bank.Domain.ICreditCard" data-throw-if-not-resolved="false"></xref> or <code>null</code> if the type is unknown.
     content.vb: Public Shared Function GetCreditCard(cardType As String) As ICreditCard
   overload: Bank.Domain.CreditCardFactory.GetCreditCard*
   nameWithType.vb: CreditCardFactory.GetCreditCard(String)
   fullName.vb: Bank.Domain.CreditCardFactory.GetCreditCard(String)
   name.vb: GetCreditCard(String)
 references:
+- uid: Bank.Domain.ICreditCard
+  commentId: T:Bank.Domain.ICreditCard
+  parent: Bank.Domain
+  href: Bank.Domain.ICreditCard.html
+  name: ICreditCard
+  nameWithType: ICreditCard
+  fullName: Bank.Domain.ICreditCard
 - uid: Bank.Domain
   commentId: N:Bank.Domain
   href: Bank.html
@@ -348,10 +361,3 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
-- uid: Bank.Domain.ICreditCard
-  commentId: T:Bank.Domain.ICreditCard
-  parent: Bank.Domain
-  href: Bank.Domain.ICreditCard.html
-  name: ICreditCard
-  nameWithType: ICreditCard
-  fullName: Bank.Domain.ICreditCard

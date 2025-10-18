@@ -21,10 +21,15 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: CreditCardFactoryMethod
     path: Bank/Bank.Domain/CreditCardAbstractMethod.cs
-    startLine: 2
+    startLine: 6
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: >-
+    Base class for the Factory Method pattern. Subclasses override <xref href="Bank.Domain.CreditCardFactoryMethod.MakeProduct" data-throw-if-not-resolved="false"></xref>
+
+    to create concrete <xref href="Bank.Domain.ICreditCard" data-throw-if-not-resolved="false"></xref> instances.
+  example: []
   syntax:
     content: public abstract class CreditCardFactoryMethod
     content.vb: Public MustInherit Class CreditCardFactoryMethod
@@ -60,14 +65,17 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: MakeProduct
     path: Bank/Bank.Domain/CreditCardAbstractMethod.cs
-    startLine: 4
+    startLine: 12
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: Factory method to be implemented by concrete factories.
+  example: []
   syntax:
     content: protected abstract ICreditCard MakeProduct()
     return:
       type: Bank.Domain.ICreditCard
+      description: A new <xref href="Bank.Domain.ICreditCard" data-throw-if-not-resolved="false"></xref> instance.
     content.vb: Protected MustOverride Function MakeProduct() As ICreditCard
   overload: Bank.Domain.CreditCardFactoryMethod.MakeProduct*
 - uid: Bank.Domain.CreditCardFactoryMethod.CreateProduct
@@ -88,17 +96,46 @@ items:
       repo: https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz.git
     id: CreateProduct
     path: Bank/Bank.Domain/CreditCardAbstractMethod.cs
-    startLine: 7
+    startLine: 20
   assemblies:
   - Bank.Domain
   namespace: Bank.Domain
+  summary: Creates a product by delegating to <xref href="Bank.Domain.CreditCardFactoryMethod.MakeProduct" data-throw-if-not-resolved="false"></xref> and returns it to the caller.
+  example: []
   syntax:
     content: public ICreditCard CreateProduct()
     return:
       type: Bank.Domain.ICreditCard
+      description: A new <xref href="Bank.Domain.ICreditCard" data-throw-if-not-resolved="false"></xref> instance.
     content.vb: Public Function CreateProduct() As ICreditCard
   overload: Bank.Domain.CreditCardFactoryMethod.CreateProduct*
 references:
+- uid: Bank.Domain.CreditCardFactoryMethod.MakeProduct
+  commentId: M:Bank.Domain.CreditCardFactoryMethod.MakeProduct
+  parent: Bank.Domain.CreditCardFactoryMethod
+  href: Bank.Domain.CreditCardFactoryMethod.html#Bank_Domain_CreditCardFactoryMethod_MakeProduct
+  name: MakeProduct()
+  nameWithType: CreditCardFactoryMethod.MakeProduct()
+  fullName: Bank.Domain.CreditCardFactoryMethod.MakeProduct()
+  spec.csharp:
+  - uid: Bank.Domain.CreditCardFactoryMethod.MakeProduct
+    name: MakeProduct
+    href: Bank.Domain.CreditCardFactoryMethod.html#Bank_Domain_CreditCardFactoryMethod_MakeProduct
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Bank.Domain.CreditCardFactoryMethod.MakeProduct
+    name: MakeProduct
+    href: Bank.Domain.CreditCardFactoryMethod.html#Bank_Domain_CreditCardFactoryMethod_MakeProduct
+  - name: (
+  - name: )
+- uid: Bank.Domain.ICreditCard
+  commentId: T:Bank.Domain.ICreditCard
+  parent: Bank.Domain
+  href: Bank.Domain.ICreditCard.html
+  name: ICreditCard
+  nameWithType: ICreditCard
+  fullName: Bank.Domain.ICreditCard
 - uid: Bank.Domain
   commentId: N:Bank.Domain
   href: Bank.html
@@ -351,6 +388,13 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: Bank.Domain.CreditCardFactoryMethod
+  commentId: T:Bank.Domain.CreditCardFactoryMethod
+  parent: Bank.Domain
+  href: Bank.Domain.CreditCardFactoryMethod.html
+  name: CreditCardFactoryMethod
+  nameWithType: CreditCardFactoryMethod
+  fullName: Bank.Domain.CreditCardFactoryMethod
 - uid: System
   commentId: N:System
   isExternal: true
@@ -364,13 +408,6 @@ references:
   name: MakeProduct
   nameWithType: CreditCardFactoryMethod.MakeProduct
   fullName: Bank.Domain.CreditCardFactoryMethod.MakeProduct
-- uid: Bank.Domain.ICreditCard
-  commentId: T:Bank.Domain.ICreditCard
-  parent: Bank.Domain
-  href: Bank.Domain.ICreditCard.html
-  name: ICreditCard
-  nameWithType: ICreditCard
-  fullName: Bank.Domain.ICreditCard
 - uid: Bank.Domain.CreditCardFactoryMethod.CreateProduct*
   commentId: Overload:Bank.Domain.CreditCardFactoryMethod.CreateProduct
   href: Bank.Domain.CreditCardFactoryMethod.html#Bank_Domain_CreditCardFactoryMethod_CreateProduct
