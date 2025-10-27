@@ -23,11 +23,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Si necesitas compilar el sitio (por ejemplo, con Jekyll o Hugo)
-      # puedes añadir aquí los pasos de build.
-      # - name: Build site
-      #   run: jekyll build  # o hugo, npm run build, etc.
-
       - name: Upload _site folder
         uses: actions/upload-pages-artifact@v3
         with:
