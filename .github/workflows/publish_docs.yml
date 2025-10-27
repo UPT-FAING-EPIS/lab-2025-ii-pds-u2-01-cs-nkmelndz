@@ -1,58 +1,91 @@
-name: Publish Documentation site
+name: Publish Documentation Site
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch: {}
 
+# Establecer permisos para el deployment de Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permitir solo un deployment concurrente
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   build-and-publish-docs:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Descargar todo el historial para mejor funcionamiento
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install docfx tool
+      - name: Install DocFX tool
         run: |
-          dotnet tool restore || true
-          if ! command -v docfx >/dev/null 2>&1; then
-            dotnet tool install -g docfx --version 3.4.0 || true
-            echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+          # Verificar si ya está instalado primero
+          if ! dotnet tool list -g | grep -q "docfx"; then
+            dotnet tool install -g docfx --version 3.4.0
+          fi
+          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Verify DocFX installation
+        run: |
+          docfx --version
+
+      - name: Validate docfx.json exists
+        id: check_docfx
+        run: |
+          if [ ! -f "docfx.json" ]; then
+            echo "Error: docfx.json not found in repository root"
+            exit 1
+          else
+            echo "docfx.json found successfully"
           fi
 
-      - name: Run docfx init if missing
+      - name: Generate documentation metadata
         run: |
-          if [ ! -f docfx.json ]; then
-            docfx init -y
+          docfx metadata docfx.json --warningsAsErrors
+
+      - name: Build documentation site
+        run: |
+          docfx build docfx.json --output _site --warningsAsErrors
+
+      - name: Validate built site
+        run: |
+          if [ ! -d "_site" ] || [ -z "$(ls -A _site)" ]; then
+            echo "Error: _site directory is empty or not created"
+            exit 1
           fi
+          echo "Site built successfully with $(find _site -type f | wc -l) files"
 
-      - name: Generate metadata
-        run: |
-          docfx metadata docfx.json
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
-      - name: Build site
-        run: |
-          docfx build docfx.json --output _site
-
-      - name: Upload _site artifact for Pages
-        uses: actions/upload-pages-artifact@v1
+      - name: Upload artifact to GitHub Pages
+        uses: actions/upload-pages-artifact@v2
         with:
-          path: _site
+          path: _site/
 
   deploy:
-    needs: build-and-publish-docs
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: https://$GITHUB_REPOSITORY.github.io
-
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    runs-on: ubuntu-latest
+    needs: build-and-publish-docs
+    
     steps:
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
-*** End Patch
+        id: deployment
+        uses: actions/deploy-pages@v2
