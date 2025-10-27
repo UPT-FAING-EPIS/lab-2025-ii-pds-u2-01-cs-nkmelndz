@@ -4,6 +4,15 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <!-- NuGet Package Metadata -->
+    <PackageId>BankDomainU201</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Cesar Nikolas Camac Melendez</Authors>
+    <Description>Library for managing credit card domain logic.</Description>
+    <PackageTags>Bank Domain CreditCard</PackageTags>
+    <RepositoryUrl>https://github.com/UPT-FAING-EPIS/lab-2025-ii-pds-u2-01-cs-nkmelndz</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>
