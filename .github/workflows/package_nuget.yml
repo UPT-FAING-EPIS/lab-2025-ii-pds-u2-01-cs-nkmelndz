@@ -69,10 +69,12 @@ jobs:
       - name: Pack NuGet package
         run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release --output ./nupkg
 
-      - name: Publish NuGet package to GitHub Packages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key "${{ secrets.GITHUB_TOKEN }}"
+      - name: Publish to GitHub Packages
+        run: |
+          dotnet nuget push ./packages/*.nupkg \
+            --skip-duplicate \
+            --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
+            --api-key ${{ secrets.GITHUB_TOKEN }}
       
       - name: Publish to NuGet.org
         run: |
