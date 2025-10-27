@@ -12,6 +12,7 @@ permissions:
 
 env:
   PROJECT_PATH: ./Bank/Bank.Domain/Bank.Domain.csproj
+  OUTPUT_PATH: ./packages
 
 jobs:
   test-and-analyze:
@@ -67,19 +68,9 @@ jobs:
         run: dotnet restore ${{ env.PROJECT_PATH }}
 
       - name: Pack NuGet package
-        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release --output ./nupkg
+        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release --output ${{ env.OUTPUT_PATH }}
 
-      - name: Publish to GitHub Packages
-        run: |
-          dotnet nuget push ./packages/*.nupkg \
-            --skip-duplicate \
-            --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
-            --api-key ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Publish to NuGet.org
-        run: |
-          dotnet nuget push ./packages/*.nupkg \
-            --skip-duplicate \
-            --source https://api.nuget.org/v3/index.json \
-            --api-key ${{ secrets.NUGET_API_KEY }}
-        continue-on-error: true
+      - name: Publish NuGet package to GitHub Packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push ${{ env.OUTPUT_PATH }}/*.nupkg --source "github" --api-key "${{ secrets.GITHUB_TOKEN }}"
