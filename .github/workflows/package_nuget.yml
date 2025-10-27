@@ -73,3 +73,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: Publish to NuGet.org
+        run: |
+          dotnet nuget push ./packages/*.nupkg \
+            --skip-duplicate \
+            --source https://api.nuget.org/v3/index.json \
+            --api-key ${{ secrets.NUGET_API_KEY }}
+        continue-on-error: true
